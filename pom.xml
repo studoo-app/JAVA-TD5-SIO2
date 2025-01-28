@@ -108,6 +108,27 @@
 
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>3.0.0-M9</version>
+                <executions>
+                    <execution>
+                        <id>generate-consolidated-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report-only</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+<!--                    <outputDirectory>${project.build.directory}/consolidated-reports</outputDirectory>-->
+                    <outputDirectory>${project.build.directory}/surefire-reports/consolidated-reports</outputDirectory>
+                    <linkXRef>false</linkXRef>
+                    <!-- Générer des rapports XML uniquement -->
+                    <reportFormat>xml</reportFormat>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
