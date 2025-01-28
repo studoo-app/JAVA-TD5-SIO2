@@ -46,7 +46,7 @@ jobs:
         if: success() || failure()
         with:
           name: ciMavenReport-full-${{ github.run_id }}
-          path: target/consolidated-reports
+          path: target/surefire-reports
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()    # run this step even if previous step failed
