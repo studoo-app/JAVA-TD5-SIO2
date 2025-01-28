@@ -41,6 +41,12 @@ jobs:
         with:
           name: ciMavenReport-${{ github.run_id }}
           path: target/surefire-reports
+      - name: Création de l'artefact des résultats des tests 2
+        uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: ciMavenReport-full-${{ github.run_id }}
+          path: target/consolidated-reports
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()    # run this step even if previous step failed
