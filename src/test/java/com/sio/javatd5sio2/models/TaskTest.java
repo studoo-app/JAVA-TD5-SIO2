@@ -18,8 +18,8 @@ class TaskTest {
     void testTaskInitialization() {
         Task newTask = new Task("New task");
         assertEquals("New task", newTask.getTitle());
-        assertFalse(newTask.isCompleted());
-        //assertTrue(newTask.isCompleted());
+        //assertFalse(newTask.isCompleted());
+        assertTrue(newTask.isCompleted());
     }
 
     @Test
