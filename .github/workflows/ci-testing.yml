@@ -11,7 +11,7 @@ jobs:
     name : Run Tests suite
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      #fail-fast: true
       matrix:
         java-version: [22]
 
@@ -34,8 +34,17 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Run tests with Maven
         run: mvn -B test --file pom.xml
-      - name: Création de l'artefact des résultats des tests
-        uses: actions/upload-artifact@v4
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()    # run this step even if previous step failed
         with:
-          name: ciMavenReport-${{ github.run_id }}
-          path: target/surefire-reports
+          name: Test Results            # Name of the check run which will be created
+          path: ${{ github.workspace }}/target/surefire-reports/TEST-TestSuite.xml    # Path to test results
+          reporter: java-junit        # Format of test results
+          #java-version: ${{ matrix.java-version }}    # Java version
+
+#      - name: Création de l'artefact des résultats des tests
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: ciMavenReport-${{ github.run_id }}
+#          path: target/surefire-reports
