@@ -33,9 +33,11 @@ jobs:
           key: maven-${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Run tests with Maven
+        if: success() || failure()
         run: mvn -B test --file pom.xml
       - name: Création de l'artefact des résultats des tests
         uses: actions/upload-artifact@v4
+        if: success() || failure()
         with:
           name: ciMavenReport-${{ github.run_id }}
           path: target/surefire-reports
