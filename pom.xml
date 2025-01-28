@@ -123,7 +123,7 @@
                 </executions>
                 <configuration>
 <!--                    <outputDirectory>${project.build.directory}/consolidated-reports</outputDirectory>-->
-                    <outputDirectory>${project.build.directory}/surefire-reports</outputDirectory>
+                    <outputDirectory>${project.build.directory}/consolidated-reports</outputDirectory>
                     <linkXRef>false</linkXRef>
                     <!-- Générer des rapports XML uniquement -->
                     <reportFormat>xml</reportFormat>
