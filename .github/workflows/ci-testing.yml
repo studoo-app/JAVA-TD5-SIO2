@@ -38,6 +38,17 @@ jobs:
       - name: Verify tests with Maven
         if: success() || failure()
         run: mvn -B verify --file pom.xml
+#      - name: Agrergation des résultats des tests
+#        if: success() || failure()
+#        run: mvn -B surefire-report:report-only --file pom.xml
+      - name: Agregagtion des résultats des tests
+        if: success() || failure()
+        run: |
+          echo "<testsuite>" > target/surefire-reports/all-tests.xml
+          for file in target/surefire-reports/*.xml; do
+              grep "<testcase" "$file" >> target/surefire-reports/all-tests.xml
+          done
+          echo "</testsuite>" >> target/surefire-reports/all-tests.xml
       - name: Création de l'artefact des résultats des tests XML
         uses: actions/upload-artifact@v4
         if: success() || failure()
