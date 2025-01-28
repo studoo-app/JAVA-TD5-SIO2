@@ -44,6 +44,7 @@ jobs:
       - name: Agregagtion des résultats des tests
         if: success() || failure()
         run: |
+          mkdir -p target/single-reports
           echo "<testsuite>" > target/single-reports/all-tests.xml
           for file in target/surefire-reports/*.xml; do
               grep "<testcase" "$file" >> target/single-reports/all-tests.xml
