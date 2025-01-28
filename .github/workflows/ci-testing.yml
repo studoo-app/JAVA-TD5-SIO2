@@ -44,17 +44,23 @@ jobs:
       - name: Agregagtion des résultats des tests
         if: success() || failure()
         run: |
-          echo "<testsuite>" > target/surefire-reports/all-tests.xml
+          echo "<testsuite>" > target/single-reports/all-tests.xml
           for file in target/surefire-reports/*.xml; do
-              grep "<testcase" "$file" >> target/surefire-reports/all-tests.xml
+              grep "<testcase" "$file" >> target/single-reports/all-tests.xml
           done
-          echo "</testsuite>" >> target/surefire-reports/all-tests.xml
-      - name: Création de l'artefact des résultats des tests XML
+          echo "</testsuite>" >> target/single-reports/all-tests.xml
+      - name: Création de l'artefact des résultats des tests XML multi fichiers
         uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: ciMavenReportXML-${{ github.run_id }}
           path: target/surefire-reports
+      - name: Création de l'artefact des résultats des tests XML consolidés
+        uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: ciMavenReportXMLSingle-${{ github.run_id }}
+          path: target/single-reports
       - name: Création de l'artefact des résultats consolidés des tests en HTML
         uses: actions/upload-artifact@v4
         if: success() || failure()
