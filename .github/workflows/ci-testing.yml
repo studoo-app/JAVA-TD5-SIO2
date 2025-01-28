@@ -32,18 +32,23 @@ jobs:
           path: ~/.m2/repository
           key: maven-${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Run tests with Maven
-        if: success() || failure()
-        run: mvn -B test --file pom.xml
+#      - name: Run tests with Maven
+#        if: success() || failure()
+#        run: mvn -B test --file pom.xml
       - name: Verify tests with Maven
         if: success() || failure()
         run: mvn -B verify --file pom.xml
-      - name: Création de l'artefact des résultats des tests
+      - name: Création de l'artefact des résultats des tests XML
         uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
-          name: ciMavenReport-${{ github.run_id }}
-          #path: target/surefire-reports
+          name: ciMavenReportXML-${{ github.run_id }}
+          path: target/surefire-reports
+      - name: Création de l'artefact des résultats consolidés des tests en HTML
+        uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: ciMavenReportHTML-${{ github.run_id }}
           path: target/consolidated-reports
       - name: Test Report
         uses: dorny/test-reporter@v1
