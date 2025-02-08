@@ -5,7 +5,6 @@ name: JAVA TD 5 - Tests runners
 on:
   push:
     branches:
-      - test-xi
       - dev-qa
 jobs:
   run-test:
@@ -34,4 +33,5 @@ jobs:
           key: maven-${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Run QA Checkstyle
+        if: success() || failure()
         run: mvn -B checkstyle:check --file pom.xml
