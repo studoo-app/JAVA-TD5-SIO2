@@ -37,4 +37,4 @@ jobs:
         run: mvn -B checkstyle:checkstyle --file pom.xml
       - name: Run PMD Check
         if: success() || failure()
-        run: mvn -B pmp:pmp --file pom.xml
+        run: mvn -B pmd:pmd --file pom.xml
