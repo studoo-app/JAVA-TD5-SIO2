@@ -38,9 +38,6 @@ jobs:
       - name: Verify tests with Maven
         if: success() || failure()
         run: mvn -B verify --file pom.xml
-#      - name: Agrergation des résultats des tests
-#        if: success() || failure()
-#        run: mvn -B surefire-report:report-only --file pom.xml
       - name: Agregagtion des résultats des tests
         if: success() || failure()
         run: |
@@ -50,24 +47,24 @@ jobs:
               grep "<testcase" "$file" >> target/single-reports/all-tests.xml
           done
           echo "</testsuite>" >> target/single-reports/all-tests.xml
-      - name: Création de l'artefact des résultats des tests XML multi fichiers
-        uses: actions/upload-artifact@v4
-        if: success() || failure()
-        with:
-          name: ciMavenReportXML-${{ github.run_id }}
-          path: target/surefire-reports
+#      - name: Création de l'artefact des résultats des tests XML multi fichiers
+#        uses: actions/upload-artifact@v4
+#        if: success() || failure()
+#        with:
+#          name: ciMavenReportXML-${{ github.run_id }}
+#          path: target/surefire-reports
       - name: Création de l'artefact des résultats des tests XML consolidés
         uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: ciMavenReportXMLSingle-${{ github.run_id }}
           path: target/single-reports
-      - name: Création de l'artefact des résultats consolidés des tests en HTML
-        uses: actions/upload-artifact@v4
-        if: success() || failure()
-        with:
-          name: ciMavenReportHTML-${{ github.run_id }}
-          path: target/consolidated-reports
+#      - name: Création de l'artefact des résultats consolidés des tests en HTML
+#        uses: actions/upload-artifact@v4
+#        if: success() || failure()
+#        with:
+#          name: ciMavenReportHTML-${{ github.run_id }}
+#          path: target/consolidated-reports
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()    # run this step even if previous step failed
@@ -78,4 +75,5 @@ jobs:
           reporter: java-junit        # Format of test results
           fail-on-error: 'false'        # Fail the check run if an error occurs
           #java-version: ${{ matrix.java-version }}    # Java version
+
 
