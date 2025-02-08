@@ -34,4 +34,4 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Run QA Checkstyle
         if: success() || failure()
-        run: mvn -B checkstyle:check --file pom.xml
+        run: mvn -B checkstyle:checkstyle --file pom.xml
