@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - test-xi
+      - dev-qa
 jobs:
   run-test:
     name : Run Tests suite
