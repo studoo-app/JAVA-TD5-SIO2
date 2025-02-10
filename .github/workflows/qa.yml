@@ -38,3 +38,7 @@ jobs:
       - name: Run PMD Check
         if: success() || failure()
         run: mvn -B pmd:pmd --file pom.xml
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_KEY }}
